@@ -5,6 +5,7 @@ set -xe
 TARGET_HOSTNAME="raspberrypi"
 
 # base stuff
+apk update
 apk add ca-certificates
 update-ca-certificates
 echo "root:raspberry" | chpasswd

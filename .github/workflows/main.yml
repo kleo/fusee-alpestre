@@ -10,7 +10,6 @@ jobs:
     - uses: actions/checkout@v1
 
     - env:
-        ALPINE_BRANCH: edge
         ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
         ARCH: armhf
       run: |

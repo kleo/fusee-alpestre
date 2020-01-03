@@ -51,9 +51,11 @@ cp -R bootstrap/ /alpine/
 /alpine/enter-chroot /bootstrap/system.sh
 /alpine/enter-chroot /bootstrap/users.sh
 /alpine/enter-chroot /bootstrap/networking.sh
+/alpine/enter-chroot /bootstrap/docker.sh
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
 /alpine/enter-chroot /bootstrap/first-boot.sh
+/alpine/enter-chroot /bootstrap/clean.sh
 
 svn export --force https://github.com/raspberrypi/firmware/trunk/boot /alpine/boot
 svn export --force https://github.com/raspberrypi/firmware/trunk/modules /alpine/lib/modules
@@ -95,6 +97,6 @@ losetup -d "$LOOP_DEV"
 FREE_START=$(parted -ms "$OUTPUT_IMG" unit B print free | tail -1 | cut -d ':' -f 2 | tr -d 'B')
 truncate -s $FREE_START "$OUTPUT_IMG"
 
-gzip -c "$OUTPUT_IMG" > "dist/alpine-rpi-$ALPINE_BRANCH-$ARCH.img.gz"
+gzip -c "$OUTPUT_IMG" > "dist/alpine-rpi-$ARCH.img.gz"
 
 echo "DONE."
