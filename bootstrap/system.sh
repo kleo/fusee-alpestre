@@ -6,6 +6,7 @@ TARGET_HOSTNAME="raspberrypi"
 
 # base stuff
 apk update
+apk upgrade
 apk add ca-certificates
 update-ca-certificates
 echo "root:raspberry" | chpasswd
@@ -15,7 +16,7 @@ setup-keymap es es
 
 # time
 apk add chrony tzdata
-setup-timezone -z Europe/Madrid
+setup-timezone -z Europe/Rome
 
 # other stuff
 apk add nano htop curl wget bash bash-completion
