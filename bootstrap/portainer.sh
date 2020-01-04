@@ -19,4 +19,4 @@ depend() {
 EOF
 
 chmod +x /etc/init.d/portainer /usr/bin/portainer
-rc-update add portainer
+rc-update add portainer default
