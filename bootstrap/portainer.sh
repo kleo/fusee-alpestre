@@ -13,6 +13,7 @@ cat <<EOF > /etc/init.d/portainer
 command="/usr/bin/portainer"
 command_background=false
 depend() {
+  after sshd
   need docker
 }
 EOF
