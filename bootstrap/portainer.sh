@@ -9,7 +9,7 @@ docker run -d -p 8000:8000 -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.
 EOF
 
 cat <<EOF > /etc/init.d/portainer
-!/sbin/openrc-run
+#!/sbin/openrc-run
 command="/usr/bin/portainer"
 command_background=false
 depend() {
