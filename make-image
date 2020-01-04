@@ -98,6 +98,8 @@ losetup -d "$LOOP_DEV"
 FREE_START=$(parted -ms "$OUTPUT_IMG" unit B print free | tail -1 | cut -d ':' -f 2 | tr -d 'B')
 truncate -s $FREE_START "$OUTPUT_IMG"
 
-gzip -c "$OUTPUT_IMG" > "dist/alpine-rpi-$ARCH.img.gz"
+TODAY_DATE=$(date +%Y_%m_%d)
+
+gzip -c "$OUTPUT_IMG" > "dist/alpine-rpi-$ARCH-$TODAY_DATE.img.gz"
 
 echo "DONE."

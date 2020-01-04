@@ -1,3 +1,4 @@
+name: Build master branch
 on:
   push:
     branches:
@@ -5,21 +6,26 @@ on:
 
 jobs:
   build:
+    name: Release image
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-
-    - env:
-        ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
-        ARCH: armhf
-      run: |
-        ./docker-runner
-
-    - env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        sudo snap install hub --classic
-        build_date=$(date +%Y%m%d)
-        build_number=$[$(git tag | grep $build_date | wc -l) + 1]
-        tag="$build_date.$build_number"
-        hub release create $tag -m "$tag" -a dist/*.gz
+      - name: Checkout master
+        uses: actions/checkout@master
+      - name: Build Alpine
+        env:
+          ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
+          ARCH: armhf
+        run: |
+          echo "::set-env name=ARCH::armhf"
+          ./docker-runner
+      - name: Create environment variables
+        run: |
+          echo "::set-env name=RELEASE_TAG::$[$(git tag | wc -l) + 1]_$(git log --format=%B -n 1 HEAD)"
+          echo "::set-env name=RELEASE_NAME::$(date +%Y_%m_%d)"
+          echo "::set-env name=RELEASE_FILES::dist/alpine-rpi-armhf-$(date +%Y_%m_%d).img.gz"
+      - name: Publish release
+        uses: meeDamian/github-release@1.0
+        with:
+          gzip: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
