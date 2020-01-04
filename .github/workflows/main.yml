@@ -20,11 +20,11 @@ jobs:
           ./docker-runner
       - name: Create environment variables
         run: |
-          echo ::set-env name=RELEASE_TAG::"$[$(git tag | wc -l) + 1]_$(git log --format=%B -n 1 HEAD)"
-          echo ::set-env name=RELEASE_NAME::"$(date +%Y_%m_%d)"
+          echo ::set-env name=RELEASE_TAG::"$(date +%Y_%m_%d)_$[$(git tag | wc -l) + 1]"
+          echo ::set-env name=RELEASE_NAME::"$(git log --format=%B -n 1 HEAD)"
       - name: Publish release
         uses: meeDamian/github-release@1.0
         with:
-          gzip: true
+          gzip: folders
           files: dist/
           token: ${{ secrets.GITHUB_TOKEN }}
