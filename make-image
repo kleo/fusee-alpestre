@@ -99,6 +99,6 @@ truncate -s "$FREE_START" "$OUTPUT_IMG"
 
 TODAY_DATE=$(date +%Y_%m_%d)
 
-gzip -c "$OUTPUT_IMG" > "dist/alpine-rpi-$ARCH-$TODAY_DATE.img.gz"
+gzip -c "$OUTPUT_IMG" >"dist/alpine-rpi-$ARCH-$TODAY_DATE.img.gz"
 
 echo "DONE."
