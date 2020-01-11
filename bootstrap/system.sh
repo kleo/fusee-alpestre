@@ -11,7 +11,7 @@ apk add ca-certificates
 update-ca-certificates
 echo "root:raspberry" | chpasswd
 setup-hostname $TARGET_HOSTNAME
-echo "127.0.0.1    $TARGET_HOSTNAME $TARGET_HOSTNAME.localdomain" > /etc/hosts
+echo "127.0.0.1    $TARGET_HOSTNAME $TARGET_HOSTNAME.localdomain" >/etc/hosts
 setup-keymap es es
 
 # time

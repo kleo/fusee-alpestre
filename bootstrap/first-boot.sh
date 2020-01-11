@@ -4,7 +4,7 @@ set -xe
 
 apk add dosfstools e2fsprogs-extra parted
 
-cat <<EOF > /usr/bin/first-boot
+cat <<EOF >/usr/bin/first-boot
 #!/bin/sh
 set -xe
 
@@ -28,7 +28,7 @@ echo "/swapfile       none            swap    sw                0       0" >> /e
 reboot
 EOF
 
-cat <<EOF > /etc/init.d/first-boot
+cat <<EOF >/etc/init.d/first-boot
 #!/sbin/openrc-run
 command="/usr/bin/first-boot"
 command_background=false
