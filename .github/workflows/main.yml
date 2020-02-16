@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - master
-  schedule:
-    - cron: '0 6 * * 1'
 
 jobs:
   build:
@@ -13,13 +11,24 @@ jobs:
     steps:
       - name: Checkout master
         uses: actions/checkout@master
-      - name: Build Alpine
+      - name: Dist directory
+        run: mkdir img-dist
+      - name: Build Alpine armhf
         env:
           ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
           ARCH: armhf
         run: |
           echo "::set-env name=ARCH::armhf"
           ./docker-runner
+          sudo mv dist/*img.gz img-dist
+      - name: Build Alpine aarch64
+        env:
+          ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
+          ARCH: aarch64
+        run: |
+          echo "::set-env name=ARCH::aarch64"
+          ./docker-runner
+          sudo mv dist/*img.gz img-dist
       - name: Create environment variables
         run: |
           echo ::set-env name=RELEASE_TAG::"$(date +%Y_%m_%d_%H_%m)"
@@ -28,5 +37,5 @@ jobs:
         uses: meeDamian/github-release@1.0
         with:
           gzip: folders
-          files: dist/
+          files: img-dist/
           token: ${{ secrets.GITHUB_TOKEN }}
