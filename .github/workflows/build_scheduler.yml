@@ -17,7 +17,7 @@ jobs:
           ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
           ARCH: armhf
         run: |
-          echo "::set-env name=ARCH::armhf"
+          echo "ARCH=armhf" >> $GITHUB_ENV
           ./docker-runner
           sudo mv dist/*img.gz img-dist
       - name: Build Alpine aarch64
@@ -25,7 +25,7 @@ jobs:
           ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
           ARCH: aarch64
         run: |
-          echo "::set-env name=ARCH::aarch64"
+          echo "ARCH=aarch64" >> $GITHUB_ENV
           ./docker-runner
           sudo mv dist/*img.gz img-dist
       - name: Create environment variables
