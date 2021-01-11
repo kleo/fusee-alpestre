@@ -30,8 +30,8 @@ jobs:
           sudo mv dist/*img.gz img-dist
       - name: Create environment variables
         run: |
-          echo ::set-env name=RELEASE_TAG::"$(date +%Y_%m_%d_%H_%m)"
-          echo ::set-env name=RELEASE_NAME::"Refresh of $(date +'%Y-%m-%d')"
+          echo "RELEASE_TAG=$(date +%Y_%m_%d_%H_%m)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Refresh of $(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: Publish release
         uses: meeDamian/github-release@1.0
         with:
