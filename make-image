@@ -51,11 +51,9 @@ cp -R bootstrap/ /alpine/
 /alpine/enter-chroot /bootstrap/system.sh
 /alpine/enter-chroot /bootstrap/users.sh
 /alpine/enter-chroot /bootstrap/networking.sh
-/alpine/enter-chroot /bootstrap/docker.sh
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
 /alpine/enter-chroot /bootstrap/first-boot.sh
-/alpine/enter-chroot /bootstrap/portainer.sh
 
 svn export --force https://github.com/raspberrypi/firmware/trunk/boot /alpine/boot
 svn export --force https://github.com/raspberrypi/firmware/trunk/modules /alpine/lib/modules
