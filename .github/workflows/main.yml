@@ -8,25 +8,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master
-        uses: actions/checkout@master
-      - name: Dist directory
-        run: mkdir img-dist
+        uses: actions/checkout@v1
+
+      - name: Build runner
+        run: docker build runner -t runner
+
       - name: Build Alpine armhf
-        env:
-          ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
-          ARCH: armhf
-        run: |
-          echo "ARCH=armhf" >> $GITHUB_ENV
-          ./docker-runner
-          sudo mv dist/*img.gz img-dist
+        run: >
+          docker run --privileged --rm 
+          -v /dev:/dev:ro 
+          -v "$PWD":/runner 
+          -w /runner 
+          -e ALPINE_BRANCH=v3.12
+          -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
+          -e ARCH=armhf
+          -e RUNNER_DEVICE_NAME=mmcblk0
+          runner ./make-image
+
       - name: Build Alpine aarch64
-        env:
-          ALPINE_MIRROR: http://dl-cdn.alpinelinux.org/alpine
-          ARCH: aarch64
-        run: |
-          echo "ARCH=aarch64" >> $GITHUB_ENV
-          ./docker-runner
-          sudo mv dist/*img.gz img-dist
+        run: >
+          docker run --privileged --rm 
+          -v /dev:/dev:ro 
+          -v "$PWD":/runner 
+          -w /runner 
+          -e ALPINE_BRANCH=v3.12
+          -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
+          -e ARCH=aarch64
+          -e RUNNER_DEVICE_NAME=mmcblk0
+          runner ./make-image
+
       - name: Create environment variables
         run: |
           echo "RELEASE_TAG=$(date +%Y_%m_%d_%H_%m)" >> $GITHUB_ENV
