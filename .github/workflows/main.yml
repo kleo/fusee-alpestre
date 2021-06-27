@@ -1,8 +1,6 @@
 name: Build master branch
 on:
   push:
-    branches:
-      - master
 
 jobs:
   build:
