@@ -42,3 +42,45 @@ https://github.com/dannybouwers/alpine-images/issues
 You may change this message by editing /etc/motd.
 EOF
 
+# Setup fusee-launcher
+apk add --no-cache axel python3 py3-usb libusb-dev
+
+mkdir -p /etc/fusee-launcher
+axel https://github.com/Qyriad/fusee-launcher/archive/refs/tags/1.0.zip --output=/etc/fusee-launcher/1.0.zip
+unzip -j /etc/fusee-launcher/1.0.zip -d /etc/fusee-launcher/
+rm -f /etc/fusee-launcher/1.0.zip
+
+axel https://github.com/Atmosphere-NX/Atmosphere/releases/download/0.19.1/fusee-primary.bin --output=/etc/fusee-launcher/fusee.bin
+
+# Create fusee-launcher service
+cat > /etc/init.d/fusee-launcher <<EOF
+#!/sbin/openrc-run
+
+name="fusee-launcher"
+command=/etc/fusee-launcher/modchipd.sh
+command_user="root"
+
+depend() {
+        need net    
+}
+
+start_pre() {
+        checkpath --directory --owner root:root --mode 0775 \
+                /etc/fusee-launcher
+}
+EOF
+
+chmod +x /etc/init.d/fusee-launcher
+
+rm -f /etc/fusee-launcher/modchipd.sh
+
+# Replace modchipd.sh
+cat > /etc/fusee-launcher/modchipd.sh <<EOF
+#!/usr/bin/env ash
+
+while true; do
+    /etc/fusee-launcher/fusee-launcher.py -w /etc/fusee-launcher/fusee.bin
+done
+EOF
+
+chmod +x /etc/fusee-launcher/modchipd.sh
