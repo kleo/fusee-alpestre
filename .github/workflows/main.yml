@@ -42,4 +42,13 @@ jobs:
           echo "RELEASE_TAG=$(date +%Y_%m_%d_%H_%m)" >> $GITHUB_ENV
           echo "RELEASE_NAME=$(git log --format=%B -n 1 HEAD)" >> $GITHUB_ENV
       - name: Show current directory
-        run: ls -la && pwd
+        run: ls -la && pwd && ls -la dist
+        
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Test build"
+          files: |
+            dist/*.gz
