@@ -43,14 +43,14 @@ You may change this message by editing /etc/motd.
 EOF
 
 # Setup fusee-launcher
-apk add --no-cache axel python3 py3-usb libusb-dev
+apk add --no-cache python3 py3-usb libusb-dev wget
 
 mkdir -p /etc/fusee-launcher
-axel https://github.com/Qyriad/fusee-launcher/archive/refs/tags/1.0.zip --output=/etc/fusee-launcher/1.0.zip
+wget https://github.com/Qyriad/fusee-launcher/archive/refs/tags/1.0.zip -O /etc/fusee-launcher/1.0.zip
 unzip -j /etc/fusee-launcher/1.0.zip -d /etc/fusee-launcher/
 rm -f /etc/fusee-launcher/1.0.zip
 
-axel https://github.com/Atmosphere-NX/Atmosphere/releases/download/0.19.1/fusee-primary.bin --output=/etc/fusee-launcher/fusee.bin
+wget https://github.com/Atmosphere-NX/Atmosphere/releases/download/0.19.1/fusee-primary.bin -O /etc/fusee-launcher/fusee.bin
 
 # Create fusee-launcher service
 cat > /etc/init.d/fusee-launcher <<EOF
