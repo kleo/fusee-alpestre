@@ -49,7 +49,6 @@ curl https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/
 cp -R bootstrap/ /alpine/
 
 /alpine/enter-chroot /bootstrap/system.sh
-/alpine/enter-chroot /bootstrap/users.sh
 /alpine/enter-chroot /bootstrap/fusee.sh
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
