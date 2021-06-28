@@ -8,7 +8,7 @@ cat <<EOF >/usr/bin/first-boot
 #!/bin/sh
 set -xe
 
-cat <<PARTED | sudo parted ---pretend-input-tty /dev/mmcblk0
+cat <<PARTED | parted ---pretend-input-tty /dev/mmcblk0
 unit %
 resizepart 2
 Yes
