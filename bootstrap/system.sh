@@ -41,3 +41,7 @@ https://github.com/dannybouwers/alpine-images/issues
 
 You may change this message by editing /etc/motd.
 EOF
+
+# bash needed for compgen
+
+apk add --no-cache bash

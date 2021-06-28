@@ -7,11 +7,20 @@ jobs:
     name: Release image
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout master
-        uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get current date
+        run: echo "CURRENT_DATE=`echo $(date '+%Y-%m-%d')`" >> $GITHUB_ENV
+
+      - name: Get short commit hash
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV        
 
       - name: Build runner
         run: docker build runner -t runner
+
+      - name: Get hekate latest release url
+        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/CTCaer/hekate/releases/latest | jq -r '.assets[].browser_download_url' | grep hekate_ctcaer`" >> $GITHUB_ENV        
 
       - name: Build Alpine armhf
         run: >
@@ -23,18 +32,15 @@ jobs:
           -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
           -e ARCH=armhf
           -e RUNNER_DEVICE_NAME=mmcblk0
+          -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL  }}"
           runner ./make-image
 
-      - name: Create environment variables
-        run: |
-          echo "RELEASE_TAG=$(date +%Y_%m_%d_%H_%m)" >> $GITHUB_ENV
-          echo "RELEASE_NAME=$(git log --format=%B -n 1 HEAD)" >> $GITHUB_ENV
-        
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Test build"
+          title: "Monthly build ${{ env.SHORT_SHA }}"
           files: |
-            dist/*.gz
+            files: |
+              dist/*.gz

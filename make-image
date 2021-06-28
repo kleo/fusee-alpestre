@@ -44,7 +44,7 @@ BOOT_PARTUUID="${IMGID}-01"
 ROOT_PARTUUID="${IMGID}-02"
 
 apt-get update
-curl https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install | sh
+curl https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install | sh -s -- -k PAYLOAD_LATEST_URL
 
 cp -R bootstrap/ /alpine/
 
@@ -87,8 +87,6 @@ losetup -d "$LOOP_DEV"
 FREE_START=$(parted -ms "$OUTPUT_IMG" unit B print free | tail -1 | cut -d ':' -f 2 | tr -d 'B')
 truncate -s "$FREE_START" "$OUTPUT_IMG"
 
-TODAY_DATE=$(date +%Y_%m_%d)
-
-gzip -c "$OUTPUT_IMG" >"dist/alpine-rpi-$ARCH-$TODAY_DATE.img.gz"
+gzip -c "$OUTPUT_IMG" >"dist/$CURRENT_DATE-fusee-alpestre-hekate.img.gz"
 
 echo "DONE."
