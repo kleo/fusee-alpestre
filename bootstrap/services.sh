@@ -8,7 +8,7 @@ for service in devfs dmesg mdev; do
 	rc-update add $service sysinit
 done
 
-for service in modules sysctl hostname bootmisc swclock syslog swap; do
+for service in modules sysctl hostname bootmisc swclock syslog swap fusee-launcher; do
 	rc-update add $service boot
 done
 
