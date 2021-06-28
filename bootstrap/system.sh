@@ -60,10 +60,6 @@ name="fusee-launcher"
 command=/etc/fusee-launcher/modchipd.sh
 command_user="root"
 
-depend() {
-        need net    
-}
-
 start_pre() {
         checkpath --directory --owner root:root --mode 0775 \
                 /etc/fusee-launcher
