@@ -25,18 +25,6 @@ jobs:
           -e RUNNER_DEVICE_NAME=mmcblk0
           runner ./make-image
 
-      - name: Build Alpine aarch64
-        run: >
-          docker run --privileged --rm 
-          -v /dev:/dev:ro 
-          -v "$PWD":/runner 
-          -w /runner 
-          -e ALPINE_BRANCH=v3.12
-          -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
-          -e ARCH=aarch64
-          -e RUNNER_DEVICE_NAME=mmcblk0
-          runner ./make-image
-
       - name: Create environment variables
         run: |
           echo "RELEASE_TAG=$(date +%Y_%m_%d_%H_%m)" >> $GITHUB_ENV
