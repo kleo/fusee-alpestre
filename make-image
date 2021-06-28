@@ -53,7 +53,6 @@ cp -R bootstrap/ /alpine/
 /alpine/enter-chroot /bootstrap/networking.sh
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
-/alpine/enter-chroot /bootstrap/first-boot.sh
 
 svn export --force https://github.com/raspberrypi/firmware/trunk/boot /alpine/boot
 svn export --force https://github.com/raspberrypi/firmware/trunk/modules /alpine/lib/modules
