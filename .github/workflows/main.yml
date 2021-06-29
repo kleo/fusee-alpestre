@@ -3,7 +3,6 @@ on:
 
 jobs:
   build:
-    name: Release image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +20,7 @@ jobs:
       - name: Get hekate latest release url
         run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/CTCaer/hekate/releases/latest | jq -r '.assets[].browser_download_url' | grep hekate_ctcaer`" >> $GITHUB_ENV        
 
-      - name: Build Alpine armhf
+      - name: Building fusee-alpestre hekate
         run: >
           docker run --privileged --rm 
           -v /dev:/dev:ro 
@@ -31,7 +30,27 @@ jobs:
           -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
           -e ARCH=armhf
           -e RUNNER_DEVICE_NAME=mmcblk0
+          -e PAYLOAD=hekate
           -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL  }}"
+          -e CURRENT_DATE="${{ env.CURRENT_DATE }}"
+          runner ./make-image
+
+      - name: Get atmosphere latest release url
+        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest | jq -r '.assets[].browser_download_url' | grep fusee-primary`" >> $GITHUB_ENV
+   
+      - name: Building fusee-alpestre atmosphere
+        run: >
+          docker run --privileged --rm 
+          -v /dev:/dev:ro 
+          -v "$PWD":/runner 
+          -w /runner 
+          -e ALPINE_BRANCH=v3.12
+          -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
+          -e ARCH=armhf
+          -e RUNNER_DEVICE_NAME=mmcblk0
+          -e PAYLOAD=atmosphere
+          -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL  }}"
+          -e CURRENT_DATE="${{ env.CURRENT_DATE }}"
           runner ./make-image
 
       - uses: "marvinpinto/action-automatic-releases@latest"
