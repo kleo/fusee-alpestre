@@ -12,13 +12,13 @@ jobs:
         run: echo "CURRENT_DATE=`echo $(date '+%Y-%m-%d')`" >> $GITHUB_ENV
 
       - name: Get short commit hash
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV        
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build runner
         run: docker build runner -t runner
 
       - name: Get hekate latest release url
-        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/CTCaer/hekate/releases/latest | jq -r '.assets[].browser_download_url' | grep hekate_ctcaer`" >> $GITHUB_ENV        
+        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/CTCaer/hekate/releases/latest | jq -r '.assets[].browser_download_url' | grep hekate_ctcaer`" >> $GITHUB_ENV
 
       - name: Building fusee-alpestre hekate
         run: >
@@ -37,7 +37,7 @@ jobs:
 
       - name: Get atmosphere latest release url
         run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest | jq -r '.assets[].browser_download_url' | grep fusee-primary`" >> $GITHUB_ENV
-   
+
       - name: Building fusee-alpestre atmosphere
         run: >
           docker run --privileged --rm 
@@ -60,4 +60,4 @@ jobs:
           prerelease: true
           title: "Monthly build ${{ env.SHORT_SHA }}"
           files: |
-            dist/*.gz
+            output/*.gz
