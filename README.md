@@ -1,28 +1,7 @@
-# Alpine Raspberry PI
+# Fusée à la Alpestre
+[![build](https://github.com/kleo/fusee-alpestre/actions/workflows/build.yml/badge.svg)](https://github.com/kleo/fusee-alpestre/actions/workflows/build.yml)
 
-This is a system install of Alpine linux for Raspberry Pi 2B, 3B, 3B+ and 4 image ready to burn to an SD card via [balenaEtcher](https://www.balena.io/etcher/) (there's no need to gunzip image).
+Fusée à la Alpestre is a Alpine Linux image for Raspberry Pi SBCs that loops Fusée Gelée over and over again.
 
-If you prefer the command line, you can use `dd` and `gzip`:
+Includes [hekate v5.5.7 & Nyx v1.0.4](https://github.com/CTCaer/hekate/releases/tag/v5.5.7) and [Atmosphere fusee-primary 0.19.3](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/0.19.3) payload images.
 
-```shell
-gzip -dc /path/to/your/image.gz | sudo dd bs=4M of=/dev/sdX
-````
-
-The image automatically setup and configures:
-
-* root user [pwd: raspberry]
-* pi user [pwd: raspberry]
-* ethernet
-* wifi (edit `wpa_supplicant.conf` in the boot partition, on first boot it will be copied)
-* bluetooth
-* avahi
-* swap
-* openssh server
-* root partition auto-expand on first boot
-* docker
-* portainer
-
-## Why this project?
-I wanted a board where all the software on it is containerized and easy to restore.
-
-Also, with [Portainer](https://www.portainer.io/), I can keep the entire system under control with a web GUI.
