@@ -3,21 +3,45 @@
 set -xe
 
 TARGET_HOSTNAME="raspberrypi"
+TARGET_PASSWORD="raspberry"
+TARGET_TIMEZONE="UTC"
+TARGET_LOCALE="us-us"
+LAYOUT=$(echo $LOCALE | cut -d'-' -f 1);
+LAYOUT_SPEC=$(echo $LOCALE | cut -d'-' -f 2);
 
 # base stuff
-apk update
-apk upgrade
-apk add ca-certificates
+apk add --no-cache ca-certificates
 update-ca-certificates
-echo "root:raspberry" | chpasswd
-setup-hostname $TARGET_HOSTNAME
-echo "127.0.0.1    $TARGET_HOSTNAME $TARGET_HOSTNAME.localdomain" >/etc/hosts
-setup-keymap es es
+
+# password
+echo "root:${TARGET_PASSWORD}" | chpasswd
+
+# hostname
+setup-hostname "${TARGET_HOSTNAME}"
+
+# keymap
+setup-keymap "${LAYOUT}" "${LAYOUT_SPEC}"
 
 # time
-apk add chrony tzdata
-setup-timezone -z Europe/Rome
+apk add --no-cache chrony tzdata
+setup-timezone -z "${TARGET_TIMEZONE}"
+rc-update add swclock boot
+rc-update add chronyd default
 
-# other stuff
-apk add nano htop curl wget bash bash-completion
-sed -i 's/\/bin\/ash/\/bin\/bash/g' /etc/passwd
+# message of the day
+cat > /etc/motd <<EOF
+Welcome to Alpine!
+
+The Alpine Wiki contains a large amount of how-to guides and general
+information about administrating Alpine systems.
+See <http://wiki.alpinelinux.org>.
+
+This is an unofficial image. Issues can be reported at 
+https://github.com/dannybouwers/alpine-images/issues
+
+You may change this message by editing /etc/motd.
+EOF
+
+# bash needed for compgen
+
+apk add --no-cache bash
