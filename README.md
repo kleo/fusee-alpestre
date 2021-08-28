@@ -1,7 +1,19 @@
 # Fusée à la Alpestre
 [![build](https://github.com/kleo/fusee-alpestre/actions/workflows/build.yml/badge.svg)](https://github.com/kleo/fusee-alpestre/actions/workflows/build.yml)
 
-Fusée à la Alpestre is a Alpine Linux image for Raspberry Pi SBCs that loops Fusée Gelée over and over again.
+Fusée à la Alpestre is an image for the Raspberry Pi that functions as payload injector for the Nintendo Switch.
 
-Includes [hekate v5.5.8 & Nyx v1.0.5](https://github.com/CTCaer/hekate/releases/tag/v5.5.7) and [Atmosphere fusee-primary 0.19.3](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/0.19.3) payload images.
+Includes [hekate v5.6.0 & Nyx v1.0.6](https://github.com/CTCaer/hekate/releases/tag/v5.6.0) and [Atmosphere fusee-primary 0.20.0](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/0.20.0) payload images.
 
+## Disclaimer
+
+ * I will not be responsible for fried Switches and Raspberries. **Use at own risk**.
+
+## Notes
+
+ * A USB A -> C cable, for transmitting to the Switch. **Do not get an old/no-brand one, it may wreck your Switch or USB source** [why?](https://pastebin.com/80QXsefE)
+ * Plug in your USB Hub **before** you power on your Pi. [why?](https://www.raspberrypi.org/forums/viewtopic.php?t=23205#p217196)
+
+## Demo
+
+[![Fusée à la Alpestre](https://img.youtube.com/vi/CdMKe9dGHEk/hqdefault.jpg)](https://youtu.be/CdMKe9dGHEk)
