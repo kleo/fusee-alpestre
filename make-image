@@ -4,7 +4,7 @@ set -xe
 
 mkdir -p output /output
 
-OUTPUT_IMG="/output/target.img"
+OUTPUT_IMG="/output/$CURRENT_DATE-fusee-alpestre-$PAYLOAD.img"
 
 rm -Rf "$OUTPUT_IMG"
 truncate -s 2G "$OUTPUT_IMG"
@@ -43,7 +43,7 @@ IMGID="$(dd if="${OUTPUT_IMG}" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut 
 BOOT_PARTUUID="${IMGID}-01"
 ROOT_PARTUUID="${IMGID}-02"
 
-apt-get update
+apt-get update && apt-get install -y zip
 curl https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install | sh -s -- -k PAYLOAD_LATEST_URL
 
 cp -R bootstrap/ /alpine/
@@ -87,6 +87,6 @@ losetup -d "$LOOP_DEV"
 FREE_START=$(parted -ms "$OUTPUT_IMG" unit B print free | tail -1 | cut -d ':' -f 2 | tr -d 'B')
 truncate -s "$FREE_START" "$OUTPUT_IMG"
 
-gzip -c "$OUTPUT_IMG" >"output/$CURRENT_DATE-fusee-alpestre-$PAYLOAD.img.gz"
+zip -j -r - "$OUTPUT_IMG" > "output/$CURRENT_DATE-fusee-alpestre-$PAYLOAD.img.zip"
 
 echo "DONE."
