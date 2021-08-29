@@ -64,4 +64,4 @@ jobs:
           prerelease: false
           title: "Monthly build ${{ env.SHORT_SHA }}"
           files: |
-            output/*.gz
+            output/*.zip
