@@ -40,7 +40,7 @@ jobs:
           runner ./make-image
 
       - name: Get atmosphere latest release url
-        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest | jq -r '.assets[].browser_download_url' | grep fusee-primary`" >> $GITHUB_ENV
+        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest | jq -r '.assets[].browser_download_url' | grep fusee`" >> $GITHUB_ENV
 
       - name: Building fusee-alpestre atmosphere
         run: >
