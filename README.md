@@ -3,7 +3,7 @@
 
 Fusée à la Alpestre is a Alpine Linux based Raspberry Pi image that functions as a payload injector for the Nintendo Switch.
 
-Includes [hekate v5.6.2 & Nyx v1.0.7](https://github.com/CTCaer/hekate/releases/tag/v5.6.2) and [Atmosphere fusee 1.1.1](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/1.1.1) payload images.
+Includes [hekate v5.6.3 & Nyx v1.0.8](https://github.com/CTCaer/hekate/releases/tag/v5.6.3) and [Atmosphere fusee 1.1.1](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/1.1.1) payload images.
 
 ## Disclaimer
 
