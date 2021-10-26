@@ -16,4 +16,4 @@ Includes [hekate v5.6.5 & Nyx v1.1.1](https://github.com/CTCaer/hekate/releases/
 
 ## Demo
 
-[![Fusée à la Alpestre](https://img.youtube.com/vi/CdMKe9dGHEk/hqdefault.jpg)](https://youtu.be/CdMKe9dGHEk)
+[![Fusée à la Alpestre](https://img.youtube.com/vi/FxCcUwWz_5U/hqdefault.jpg)](https://youtu.be/FxCcUwWz_5U)
