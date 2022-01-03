@@ -4,7 +4,9 @@ on:
   push:
   schedule:
     - cron: "0 6 1 * *"
-
+  tags:
+      - "latest"
+  
 jobs:
   build:
     runs-on: ubuntu-20.04
