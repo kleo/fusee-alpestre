@@ -48,8 +48,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: output/${{ matrix.name }}.img.zip
-          path: output/${{ matrix.name }}.img.zip
+          name: ${{ matrix.name }}.img.zip
+          path: output
 
   release:
     name: Create Github Release
