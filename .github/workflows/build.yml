@@ -7,24 +7,31 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        include:
+          - payload: hekate
+            repo: https://api.github.com/repos/CTCaer/hekate/releases/latest
+            grep: hekate_ctcaer
+            name: fusee-alpestre-hekate.img.zip
+
+          - payload: atmosphere
+            repo: https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest
+            grep: fusee
+            name: fusee-alpestre-atmosphere.img.zip
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Get current date
-        run: echo "CURRENT_DATE=`echo $(date '+%Y-%m-%d')`" >> $GITHUB_ENV
-
-      - name: Get short commit hash
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-7`" >> $GITHUB_ENV
 
       - name: Build runner
         run: docker build runner -t runner
 
       - name: Get hekate latest release url
-        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/CTCaer/hekate/releases/latest | jq -r '.assets[].browser_download_url' | grep hekate_ctcaer`" >> $GITHUB_ENV
+        run: echo "PAYLOAD_LATEST_URL=`curl -sL ${{ matrix.repo }} | jq -r '.assets[].browser_download_url' | grep ${{ matrix.grep }}`" >> $GITHUB_ENV
 
-      - name: Building fusee-alpestre hekate
+      - name: Make ${{ matrix.payload }} image
         run: >
           docker run --privileged --rm 
           -v /dev:/dev:ro 
@@ -34,34 +41,26 @@ jobs:
           -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
           -e ARCH=armhf
           -e RUNNER_DEVICE_NAME=mmcblk0
-          -e PAYLOAD=hekate
-          -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL  }}"
-          -e CURRENT_DATE="${{ env.CURRENT_DATE }}"
+          -e NAME=${{ matrix.name }}
+          -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL }}"
           runner ./make-image
 
-      - name: Get atmosphere latest release url
-        run: echo "PAYLOAD_LATEST_URL=`curl -sL https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest | jq -r '.assets[].browser_download_url' | grep fusee`" >> $GITHUB_ENV
-
-      - name: Building fusee-alpestre atmosphere
-        run: >
-          docker run --privileged --rm 
-          -v /dev:/dev:ro 
-          -v "$PWD":/runner 
-          -w /runner 
-          -e ALPINE_BRANCH=v3.12
-          -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
-          -e ARCH=armhf
-          -e RUNNER_DEVICE_NAME=mmcblk0
-          -e PAYLOAD=atmosphere
-          -e PAYLOAD_LATEST_URL="${{ env.PAYLOAD_LATEST_URL  }}"
-          -e CURRENT_DATE="${{ env.CURRENT_DATE }}"
-          runner ./make-image
-
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
         with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: false
-          title: "Monthly build ${{ env.SHORT_SHA }}"
-          files: |
-            output/*.zip
+          name: output/${{ matrix.name }}
+          path: output/${{ matrix.name }}
+
+  release:
+    name: Create Github Release
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+
+      - uses: actions/download-artifact@v2
+
+      - run: ls -la 
+
+      - uses: softprops/action-gh-release@v1
+        with:
+          files: ${{ matrix.name }}

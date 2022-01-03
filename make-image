@@ -87,6 +87,6 @@ losetup -d "$LOOP_DEV"
 FREE_START=$(parted -ms "$OUTPUT_IMG" unit B print free | tail -1 | cut -d ':' -f 2 | tr -d 'B')
 truncate -s "$FREE_START" "$OUTPUT_IMG"
 
-zip -j -r - "$OUTPUT_IMG" > "output/$CURRENT_DATE-fusee-alpestre-$PAYLOAD.img.zip"
+zip -j -r - "$OUTPUT_IMG" > "output/$NAME"
 
 echo "DONE."
