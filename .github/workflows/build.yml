@@ -62,7 +62,7 @@ jobs:
     steps:
 
       - uses: actions/download-artifact@v2
-      
+
       - uses: softprops/action-gh-release@v1
         with:
-          files: ${{ matrix.name }}.img.zip
+          files: *.img.zip
