@@ -2,10 +2,12 @@ name: build
 
 on:
   push:
+    tags:
+      - "latest"
+
   schedule:
     - cron: "0 6 1 * *"
-  tags:
-      - "latest"
+
   
 jobs:
   build:
