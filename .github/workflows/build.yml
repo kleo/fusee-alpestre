@@ -14,12 +14,12 @@ jobs:
           - payload: hekate
             repo: https://api.github.com/repos/CTCaer/hekate/releases/latest
             grep: hekate_ctcaer
-            name: fusee-alpestre-hekate.img.zip
+            name: fusee-alpestre-hekate
 
           - payload: atmosphere
             repo: https://api.github.com/repos/Atmosphere-NX/Atmosphere/releases/latest
             grep: fusee
-            name: fusee-alpestre-atmosphere.img.zip
+            name: fusee-alpestre-atmosphere
 
     steps:
       - name: Checkout
@@ -48,8 +48,8 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: output/${{ matrix.name }}
-          path: output/${{ matrix.name }}
+          name: output/${{ matrix.name }}.img.zip
+          path: output/${{ matrix.name }}.img.zip
 
   release:
     name: Create Github Release
