@@ -25,6 +25,8 @@ jobs:
             grep: fusee
             name: fusee-alpestre-atmosphere
 
+    name: ${{ matrix.payload }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
