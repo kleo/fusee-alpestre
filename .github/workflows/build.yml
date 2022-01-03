@@ -3,7 +3,7 @@ name: build
 on:
   push:
     tags:
-      - "latest"
+      - "v*.*.*"
 
   schedule:
     - cron: "0 6 1 * *"
@@ -62,9 +62,7 @@ jobs:
     steps:
 
       - uses: actions/download-artifact@v2
-
-      - run: ls -la 
-
+      
       - uses: softprops/action-gh-release@v1
         with:
-          files: ${{ matrix.name }}
+          files: ${{ matrix.name }}.img.zip
