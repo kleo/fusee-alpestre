@@ -10,7 +10,7 @@ LAYOUT=$(echo $LOCALE | cut -d'-' -f 1);
 LAYOUT_SPEC=$(echo $LOCALE | cut -d'-' -f 2);
 
 # base stuff
-apk add --no-cache ca-certificates alpine-conf
+apk add --no-cache ca-certificates alpine-conf busybox-initscripts
 update-ca-certificates
 
 # password
