@@ -41,7 +41,7 @@ jobs:
           -v /dev:/dev:ro 
           -v "$PWD":/runner 
           -w /runner 
-          -e ALPINE_BRANCH=v3.14
+          -e ALPINE_BRANCH=v3.13
           -e ALPINE_MIRROR="http://dl-cdn.alpinelinux.org/alpine" 
           -e ARCH=armhf
           -e RUNNER_DEVICE_NAME=mmcblk0
