@@ -90,3 +90,4 @@ truncate -s "$FREE_START" "$OUTPUT_IMG"
 zip -j -r - "$OUTPUT_IMG" > "output/$NAME.zip"
 
 echo "DONE."
+
