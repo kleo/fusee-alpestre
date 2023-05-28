@@ -5,7 +5,7 @@ Fusée à la Alpestre is a Alpine Linux based Raspberry Pi image that functions 
 
 
 
-Includes [hekate v6.0.4 & Nyx v1.5.3](https://github.com/CTCaer/hekate/releases/tag/v6.0.4) and [Atmosphère 1.5.3](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/1.5.3) payload images.
+Includes [hekate v6.0.4 & Nyx v1.5.3](https://github.com/CTCaer/hekate/releases/tag/v6.0.4) and [Atmosphère 1.5.3](https://github.com/Atmosphere-NX/Atmosphere/releases/tag/1.5.3) payloads.
 
 ## Disclaimer
 
