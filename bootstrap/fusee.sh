@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-FUSEE_LAUNCHER_HASH=e4dee10256f1b84ac131899c10d5900a4c1821f63d19f0c4a0e5fd6f9022fb4b
+FUSEE_LAUNCHER_HASH=e4dee10256f1b84ac131899c10d5900a4c1821f63d19f0c4a0e5fd6f9022fb4c
 
 # Setup fusee-launcher
 apk add --no-cache python3 py3-usb libusb-dev wget
