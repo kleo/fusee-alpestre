@@ -53,8 +53,10 @@ cp -R bootstrap/ /alpine/
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
 
-svn export --force https://github.com/raspberrypi/firmware/boot /alpine/boot
-svn export --force https://github.com/raspberrypi/firmware/modules /alpine/lib/modules
+git clone https://github.com/raspberrypi/firmware /tmp/firmware
+cp -R /tmp/firmware/boot /alpine/boot
+cp -R /tmp/firmware/modules /alpine/lib/modules
+rm -rf /tmp/firmware
 
 rm -rf /alpine/var/lib/apt/lists/*
 rm -rf /alpine/var/cache/apk/*
