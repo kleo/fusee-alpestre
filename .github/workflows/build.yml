@@ -1,10 +1,6 @@
 name: build
 
 on:
-  push:
-    tags:
-      - "v*.*.*"
-
   schedule:
     - cron: "0 6 1 * *"
 
