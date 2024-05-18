@@ -55,8 +55,8 @@ cp -R bootstrap/ /alpine/
 
 wget https://github.com/raspberrypi/firmware/archive/refs/heads/master.zip -O /tmp/firmware.zip
 unzip /tmp/firmware.zip -d /tmp/firmware
-cp -R /tmp/firmware/boot /alpine/boot
-cp -R /tmp/firmware/modules /alpine/lib/modules
+cp -R /tmp/firmware/firmware-master/boot /alpine/boot
+cp -R /tmp/firmware/firmware-master/modules /alpine/lib/modules
 rm -rf /tmp/firmware
 
 rm -rf /alpine/var/lib/apt/lists/*
