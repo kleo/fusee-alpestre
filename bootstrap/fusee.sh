@@ -12,7 +12,6 @@ FUSEE_LAUNCHER_CALCULATED_HASH=$(sha256sum /etc/fusee-launcher/1.0.zip | awk '{p
 
 if [ "$FUSEE_LAUNCHER_CALCULATED_HASH" == "$FUSEE_LAUNCHER_HASH" ]; then
     echo "Hashes match. File integrity verified."
-    exit 0
 else
     echo "Hashes do not match. File may be corrupted."
     exit 1
