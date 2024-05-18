@@ -1,10 +1,21 @@
 #!/bin/bash -e
 
+FUSEE_LAUNCHER_HASH=e4dee10256f1b84ac131899c10d5900a4c1821f63d19f0c4a0e5fd6f9022fb4b
+
 # Setup fusee-launcher
 apk add --no-cache python3 py3-usb libusb-dev wget
 
 mkdir -p /etc/fusee-launcher
 wget https://github.com/borntohonk/fusee-launcher/archive/refs/tags/1.0.zip -O /etc/fusee-launcher/1.0.zip
+
+FUSEE_LAUNCHER_CALCULATED_HASH=$(sha256sum /etc/fusee-launcher/1.0.zip | awk '{print $1}')
+
+if [ "$FUSEE_LAUNCHER_CALCULATED_HASH" == "$FUSEE_LAUNCHER_HASH" ]; then
+    echo "Hashes match. File integrity verified."
+else
+    echo "Hashes do not match. File may be corrupted."
+fi
+
 unzip -j /etc/fusee-launcher/1.0.zip -d /etc/fusee-launcher/
 rm -f /etc/fusee-launcher/1.0.zip
 
