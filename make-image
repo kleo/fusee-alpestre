@@ -43,7 +43,7 @@ IMGID="$(dd if="${OUTPUT_IMG}" skip=440 bs=1 count=4 2>/dev/null | xxd -e | cut 
 BOOT_PARTUUID="${IMGID}-01"
 ROOT_PARTUUID="${IMGID}-02"
 
-apt-get update && apt-get install -y zip git
+apt-get update && apt-get install -y zip unzip
 curl https://raw.githubusercontent.com/alpinelinux/alpine-chroot-install/master/alpine-chroot-install | sh -s -- -k PAYLOAD_LATEST_URL
 
 cp -R bootstrap/ /alpine/
@@ -53,7 +53,8 @@ cp -R bootstrap/ /alpine/
 /alpine/enter-chroot /bootstrap/services.sh
 /alpine/enter-chroot /bootstrap/kernel.sh
 
-git clone https://github.com/raspberrypi/firmware /tmp/firmware
+wget https://github.com/raspberrypi/firmware/archive/refs/heads/master.zip -O /tmp/firmware.zip
+unzip /tmp/firmware.zip -d /tmp/firmware
 cp -R /tmp/firmware/boot /alpine/boot
 cp -R /tmp/firmware/modules /alpine/lib/modules
 rm -rf /tmp/firmware
