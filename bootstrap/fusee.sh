@@ -4,7 +4,7 @@
 apk add --no-cache python3 py3-usb libusb-dev wget
 
 mkdir -p /etc/fusee-launcher
-wget https://github.com/Qyriad/fusee-launcher/archive/refs/tags/1.0.zip -O /etc/fusee-launcher/1.0.zip
+wget https://github.com/borntohonk/fusee-launcher/archive/refs/tags/1.0.zip -O /etc/fusee-launcher/1.0.zip
 unzip -j /etc/fusee-launcher/1.0.zip -d /etc/fusee-launcher/
 rm -f /etc/fusee-launcher/1.0.zip
 
