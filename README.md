@@ -7,7 +7,7 @@ Includes [hekate v6.1.1 & Nyx v1.6.1](https://github.com/CTCaer/hekate/releases/
 
 ## Disclaimer
 
- * I will not be responsible for fried Raspberries and Switches. **Use at own risk**
+ * I will not be responsible for fried Raspberries and Switches. **Use at own risk**.
  * Tested on Raspberry Pi 3 and Zero
 
 ## Notes
